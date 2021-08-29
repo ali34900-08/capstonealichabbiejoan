@@ -1,0 +1,49 @@
+
+<div class="container-fluid">
+<div class="card text-center " style="width: 20rem; height: 15rem; box-shadow: 10px;">
+  <div class="text-left">
+  <div class="card-header"><i class="fas fa-plus-circle"></i> Add Class</div>
+  </div>
+  <div class="card-body">
+   <form method="POST" style="margin-top: 1rem;">
+    <div class="form-group">
+      <div class="mb-3">
+         <input type="text" class="form-control" name="addclass" placeholder="Add Class">
+      </div>
+    </div>
+  <br>
+    <div class="text-left">
+       <button name="save" type="submit" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+    </div>
+ 
+</form>
+  </div>
+  
+</div>
+</div>
+
+
+<?php
+if (isset($_POST['save'])){
+$class_name = $_POST['addclass'];
+
+
+$query = mysqli_query($link,"select * from class where class_name  =  '$class_name' ")or die(mysqli_error());
+$count = mysqli_num_rows($query);
+
+if ($count > 0){ ?>
+<script>
+alert('Date Already Exist');
+</script>
+<?php
+}else{
+mysqli_query($link,"insert into class (class_name) values('$class_name')")or die(mysqli_error());
+?>
+<script>
+window.location = "class.php";
+</script>
+<?php
+}
+}
+?>
+
